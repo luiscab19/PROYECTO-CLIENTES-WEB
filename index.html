@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULADORA DE MATRICES</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="contenedor">
+        <div class="matriz-bloque" id="bloqueA">
+            <h2>MATRIZ A</h2>
+            <div id="tamañoA">
+                <label for="filasA">Filas</label>
+                <input type="number" id="filasA" min="1" max="5">
+                <label for="columnasA">Columnas</label>
+                <input type="number" id="columnasA" min="1" max="5">
+                <button onclick="generarmatriz('A')"> Generar matriz</button>
+            </div>
+            <div>
+                <div id="MatrizA" class="matrix-display"></div>
+                <div id="IngresarManueal" class="ingreso-manual"></div>
+                <button id="limpiarA" onclick="limpiarMatriz('A')" disabled>LIMPIAR</button>
+            </div>
+        </div>
+        
+        <div class="matriz-bloque" id="bloqueB">
+            <h2>MATRIZ B</h2>
+            <div id="tamañoA">
+                <label for="filasB">Filas</label>
+                <input type="number" id="filasA" min="1" max="5">
+                <label for="columnasB">Columnas</label>
+                <input type="number" id="columnasA" min="1" max="5">
+                <button onclick="generarmatriz('B')"> Generar matriz</button>
+            </div>
+            <div>
+                <div id="MatrizB" class="matrix-display"></div>
+                <div id="IngresarManueal" class="ingreso-manual"></div>
+                <button id="limpiarA" onclick="limpiarMatriz('B')" disabled>LIMPIAR</button>
+            </div>
+        </div>
+
+        <div>
+            <button onclick="sumar()">Sumar</button>
+            <button onclick="restar()">Restar</button>
+            <button onclick="multiplicar()">Multiplicar</button>
+            <button onclick="escalar()">Multiplicar por un escalar</button>
+            <button onclick="determinante('A')">Determinante de A</button>
+            <button onclick="determinante('B')">Determinante de B</button>
+            <button onclick="transponer('A')">Transponer A</button>
+            <button onclick="transponer('B')">Transponer B</button>
+            <button onclick="inversa('A')">Matriz Inversa de A</button>
+            <button onclick="inversa('B')">Matriz Inversa de B</button>
+            <button onclick="identidad('A')">Matriz identidad de A</button>
+            <button onclick="identidad('B')">Matriz identidad de B</button>
+            <button></button>
+        </div>
+
+        <div class="resultados">
+            <h2>RESULTADOS</h2>
+            <div id="resultado" class="result-display"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
