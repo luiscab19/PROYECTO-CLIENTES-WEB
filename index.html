@@ -1,73 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CALCULADORA DE MATRICES</title>
+    <title>Operaciones con Matrices</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="contenedor">
-        <h1>CALCULADORA DE MATRICES</h1>
-
+    <div class="container">
+        <h1>Operaciones con Matrices NxM</h1>
+        
         <!-- MATRIZ A-->
-        <div class="matriz-box" id="bloqueA">
-            <h2>MATRIZ A</h2>
-            <div id="tamañoA">
-                <label for="filasA">Filas</label>
+        <div class="matrix-block" id="bloqueA">
+            <h2>Matriz A</h2>
+            <div id="sizeA">
+                <label for="filasA">Filas (Máx 5):</label>
                 <input type="number" id="filasA" min="1" max="5">
-                <label for="columnasA">Columnas</label>
+                <label for="columnasA">Columnas (Máx 5):</label>
                 <input type="number" id="columnasA" min="1" max="5">
-                <button onclick="generarmatriz('A')"> Generar matriz</button>
+                <button onclick="generarMatriz('A')">Generar Matriz</button>
             </div>
-            <div>
-                <div id="MatrizA" class="matrix-display"></div>
-                <div id="IngresarManueal" class="ingreso-manual"></div>
-                <button id="limpiarA" onclick="limpiarMatriz('A')" disabled>LIMPIAR</button>
-            </div>
+            <div id="matrixA" class="matrix-display"></div>
+            <div id="ingresoManualA" class="ingreso-manual"></div>
+            <button id="limpiarA" onclick="limpiarMatriz('A')" disabled>Limpiar</button>
         </div>
         
         <!-- MATRIZ B-->
-        <div class="matriz-box" id="bloqueB">
-            <h2>MATRIZ B</h2>
-            <div id="tamañoB">
-                <label for="filasB">Filas</label>
-                <input type="number" id="filasA" min="1" max="5">
-                <label for="columnasB">Columnas</label>
-                <input type="number" id="columnasA" min="1" max="5">
-                <button onclick="generarmatriz('B')"> Generar matriz</button>
+        <div class="matrix-block" id="bloqueB">
+            <h2>Matriz B</h2>
+            <div id="sizeB">
+                <label for="filasB">Filas (Máx 5):</label>
+                <input type="number" id="filasB" min="1" max="5">
+                <label for="columnasB">Columnas (Máx 5):</label>
+                <input type="number" id="columnasB" min="1" max="5">
+                <button onclick="generarMatriz('B')">Generar Matriz</button>
             </div>
-                <div id="MatrizB" class="matrix-display"></div>
-                <div id="IngresarManueal" class="ingreso-manual"></div>
-                <button id="limpiarA" onclick="limpiarMatriz('B')" disabled>LIMPIAR</button>
-
-        <!-- ESCALAR-->
-        </div class="escalar-input">
-        <h2>ESCALAR</h2>
-        <input type="number" class="escalar" placeholder="ingrese valor">
+            <div id="matrixB" class="matrix-display"></div>
+            <div id="ingresoManualB" class="ingreso-manual"></div>
+            <button id="limpiarB" onclick="limpiarMatriz('B')" disabled>Limpiar</button>
         </div>
-
+        
+        <!-- ESCALAR-->
+        <div class="scalar-input">
+            <h2>Escalar</h2>
+            <input type="number" id="scalar" placeholder="Ingrese un escalar">
+        </div>
+        
         <!-- BOTONES -->
         <div class="buttons">
-            <button onclick="sumar()">Sumar</button>
-            <button onclick="restar()">Restar</button>
-            <button onclick="multiplicar()">Multiplicar</button>
-            <button onclick="escalar()">Multiplicar por un escalar</button>
-            <button onclick="determinante('A')">Determinante de A</button>
-            <button onclick="determinante('B')">Determinante de B</button>
-            <button onclick="transponer('A')">Transponer A</button>
-            <button onclick="transponer('B')">Transponer B</button>
-            <button onclick="inversa('A')">Matriz Inversa de A</button>
-            <button onclick="inversa('B')">Matriz Inversa de B</button>
-            <button onclick="identidad()">Matriz identidad de A</button>
-            <button></button>
+            <button onclick="sumarMatrices()">Sumar</button>
+            <button onclick="restarMatrices()">Restar</button>
+            <button onclick="multiplicarMatrices()">Multiplicar</button>
+            <button onclick="multiplicarPorEscalar()">Multiplicar por Escalar</button>
+            <button onclick="calcularDeterminante('A')">Determinante de A</button>
+            <button onclick="calcularDeterminante('B')">Determinante de B</button>
+            <button onclick="transponerMatriz('A')">Transponer A</button>
+            <button onclick="transponerMatriz('B')">Transponer B</button>
+            <button onclick="calcularInversaMatriz('A')">Inversa de A</button>
+            <button onclick="calcularInversaMatriz('B')">Inversa de B</button>
+            <button onclick="generarYMostrarIdentidad()">Generar Matriz Identidad</button>
         </div>
-
-        <div class="resultados">
-            <h2>RESULTADOS</h2>
+        
+        <div class="result">
+            <h2>Resultado</h2>
             <div id="resultado" class="result-display"></div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
