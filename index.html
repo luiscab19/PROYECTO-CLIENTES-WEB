@@ -9,44 +9,53 @@
 <body>
     <div class="container">
         <h1>Operaciones con Matrices NxM</h1>
-        
-        <!-- MATRIZ A-->
-        <div class="matrix-block" id="bloqueA">
-            <h2>Matriz A</h2>
-            <div id="sizeA">
-                <label for="filasA">Filas (Máx 5):</label>
-                <input type="number" id="filasA" min="1" max="5">
-                <label for="columnasA">Columnas (Máx 5):</label>
-                <input type="number" id="columnasA" min="1" max="5">
-                <button onclick="generarMatriz('A')">Generar Matriz</button>
+
+        <!-- Contenedor de matrices -->
+        <div class="matrix-container">
+            <!-- MATRIZ A -->
+            <div class="matrix-block" id="bloqueA">
+                <h2>Matriz A</h2>
+                <div id="sizeA">
+                    <label for="filasA">Filas (Máx 5):</label>
+                    <input type="number" id="filasA" min="1" max="5">
+                    <label for="columnasA">Columnas (Máx 5):</label>
+                    <input type="number" id="columnasA" min="1" max="5">
+                    <div class="button-group">
+                        <button onclick="generarMatriz('A')">Generar Matriz</button>
+                        <button class="generar-aleatoria" onclick="generarMatrizAleatoria('A')">Generar Aleatoria</button>
+                    </div>
+                </div>
+                <div id="matrixA" class="matrix-display"></div>
+                <div id="ingresoManualA" class="ingreso-manual"></div>
+                <button id="limpiarA" onclick="limpiarMatriz('A')" disabled>Limpiar</button>
             </div>
-            <div id="matrixA" class="matrix-display"></div>
-            <div id="ingresoManualA" class="ingreso-manual"></div>
-            <button id="limpiarA" onclick="limpiarMatriz('A')" disabled>Limpiar</button>
-        </div>
-        
-        <!-- MATRIZ B-->
-        <div class="matrix-block" id="bloqueB">
-            <h2>Matriz B</h2>
-            <div id="sizeB">
-                <label for="filasB">Filas (Máx 5):</label>
-                <input type="number" id="filasB" min="1" max="5">
-                <label for="columnasB">Columnas (Máx 5):</label>
-                <input type="number" id="columnasB" min="1" max="5">
-                <button onclick="generarMatriz('B')">Generar Matriz</button>
+
+            <!-- MATRIZ B -->
+            <div class="matrix-block" id="bloqueB">
+                <h2>Matriz B</h2>
+                <div id="sizeB">
+                    <label for="filasB">Filas (Máx 5):</label>
+                    <input type="number" id="filasB" min="1" max="5">
+                    <label for="columnasB">Columnas (Máx 5):</label>
+                    <input type="number" id="columnasB" min="1" max="5">
+                    <div class="button-group">
+                        <button onclick="generarMatriz('B')">Generar Matriz</button>
+                        <button class="generar-aleatoria" onclick="generarMatrizAleatoria('B')">Generar Aleatoria</button>
+                    </div>
+                </div>
+                <div id="matrixB" class="matrix-display"></div>
+                <div id="ingresoManualB" class="ingreso-manual"></div>
+                <button id="limpiarB" onclick="limpiarMatriz('B')" disabled>Limpiar</button>
             </div>
-            <div id="matrixB" class="matrix-display"></div>
-            <div id="ingresoManualB" class="ingreso-manual"></div>
-            <button id="limpiarB" onclick="limpiarMatriz('B')" disabled>Limpiar</button>
         </div>
-        
-        <!-- ESCALAR-->
+
+        <!-- ESCALAR -->
         <div class="scalar-input">
             <h2>Escalar</h2>
             <input type="number" id="scalar" placeholder="Ingrese un escalar">
         </div>
-        
-        <!-- BOTONES -->
+
+        <!-- BOTONES DE OPERACIONES -->
         <div class="buttons">
             <button onclick="sumarMatrices()">Sumar</button>
             <button onclick="restarMatrices()">Restar</button>
@@ -60,7 +69,8 @@
             <button onclick="calcularInversaMatriz('B')">Inversa de B</button>
             <button onclick="generarYMostrarIdentidad()">Generar Matriz Identidad</button>
         </div>
-        
+
+        <!-- RESULTADO -->
         <div class="result">
             <h2>Resultado</h2>
             <div id="resultado" class="result-display"></div>

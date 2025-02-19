@@ -1,6 +1,6 @@
 /* Estilos generales */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Verdana;
     background: linear-gradient(100deg, #9d15d7, #446beb);
     display: flex;
     justify-content: center;
@@ -32,16 +32,23 @@ h2 {
     color: #555;
 }
 
+/* Contenedor de matrices */
+.matrix-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
 /* Bloques de matrices */
 .matrix-block {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 20px;
-    display: inline-block;
-    margin: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 45%;
+    max-width: 45%;
 }
 
 .matrix-block:hover {
@@ -54,7 +61,7 @@ h2 {
 }
 
 #bloqueB {
-    background-color:  #9fcff1;
+    background-color: #9fcff1;
 }
 
 /* Inputs y tablas */
@@ -62,7 +69,7 @@ input[type="number"] {
     width: 60px;
     padding: 8px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #b7f0f0;
     font-size: 1em;
     text-align: center;
 }
@@ -108,16 +115,19 @@ input[type="number"] {
 }
 
 /* Botones */
-.buttons button {
+.buttons button, #sizeA button, #sizeB button, #limpiarA, #limpiarB {
     margin: 10px;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 25px;
-    background-color: #667eea;
-    color: #fff;
+    border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.buttons button {
+    background-color: #667eea;
+    color: #fff;
 }
 
 .buttons button:hover {
@@ -129,10 +139,60 @@ input[type="number"] {
     transform: translateY(0);
 }
 
+#sizeA button, #sizeB button {
+    background-color: #667eea;
+    color: #fff;
+}
+
+#sizeA button:hover, #sizeB button:hover {
+    background-color: #5a6fd1;
+    transform: translateY(-3px);
+}
+
+#limpiarA, #limpiarB {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+#limpiarA:hover, #limpiarB:hover {
+    background-color: #c0392b;
+    transform: translateY(-3px);
+}
+
+/* Botón "Generar Aleatoria" */
+.generar-aleatoria {
+    background-color: #667eea; 
+    color: #fff;
+    margin: 5px; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.generar-aleatoria:hover {
+    background-color: #5a6fd1; 
+    transform: translateY(-3px);
+}
+
+.generar-aleatoria:active {
+    transform: translateY(0);
+}
+
+/* Grupo de botones */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 /* Resultado */
 .result {
     margin-top: 30px;
-} 
+}
 
 .result-display {
     display: flex;
@@ -153,7 +213,7 @@ input[type="number"] {
     min-width: 40px;
     background-color: #fff;
     box-sizing: border-box;
-} 
+}
 
 /* Escalar */
 .scalar-input {
@@ -167,4 +227,4 @@ input[type="number"] {
     border: 1px solid #ccc;
     font-size: 1em;
     text-align: center;
-}   
+}

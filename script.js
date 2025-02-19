@@ -26,9 +26,8 @@ function generarMatriz(tipo) {
 // Función para crear inputs manuales
 function crearInputsManuales(tipo, filas, columnas) {
     const contenedor = document.getElementById(`ingresoManual${tipo}`);
-    contenedor.innerHTML = ''; // Limpiar el contenedor
+    contenedor.innerHTML = '';
 
-    // Crear una cuadrícula (grid) para los inputs
     contenedor.style.display = 'grid';
     contenedor.style.gridTemplateColumns = `repeat(${columnas}, 50px)`;
     contenedor.style.gap = '10px';
@@ -43,18 +42,17 @@ function crearInputsManuales(tipo, filas, columnas) {
             contenedor.appendChild(input);
         }
     }
-
-    // Botón para generar matriz aleatoria
-    const botonAleatorio = document.createElement('button');
-    botonAleatorio.textContent = 'Generar Aleatoria';
-    botonAleatorio.onclick = () => generarMatrizAleatoria(tipo);
-    contenedor.appendChild(botonAleatorio);
 }
 
 // Función para generar una matriz aleatoria
 function generarMatrizAleatoria(tipo) {
     const filas = tipo === 'A' ? tamanoA.filas : tamanoB.filas;
     const columnas = tipo === 'A' ? tamanoA.columnas : tamanoB.columnas;
+
+    if (filas === 0 || columnas === 0) {
+        alert("Primero ingrese el tamaño de la matriz.");
+        return;
+    }
 
     for (let i = 0; i < filas; i++) {
         for (let j = 0; j < columnas; j++) {
@@ -250,14 +248,12 @@ function checkMultiplicationCompatibility(matrizA, matrizB) {
 
 // Función para transponer una matriz
 function transponerMatriz(tipo) {
-    const matriz = obtenerMatriz(tipo); // Obtener la matriz
+    const matriz = obtenerMatriz(tipo); 
 
-    if (!matriz) return; // Si no hay matriz, salir
+    if (!matriz) return; 
 
-    // Crear la matriz transpuesta
     const transpuesta = matriz[0].map((_, colIndex) => matriz.map(fila => fila[colIndex]));
 
-    // Mostrar el resultado
     mostrarResultado([{ titulo: `Transpuesta de ${tipo}`, matriz: transpuesta }]);
 }
 
@@ -265,8 +261,8 @@ function transponerMatriz(tipo) {
 function generarMatrizIdentidad(n) {
     const identidad = [];
     for (let i = 0; i < n; i++) {
-        const fila = new Array(n).fill(0); // Llenar la fila con ceros
-        fila[i] = 1; // Colocar 1 en la diagonal principal
+        const fila = new Array(n).fill(0); 
+        fila[i] = 1; 
         identidad.push(fila);
     }
     return identidad;
@@ -276,21 +272,17 @@ function generarMatrizIdentidad(n) {
 function calcularInversa(matriz) {
     const n = matriz.length;
 
-    // Verificar si la matriz es cuadrada
     if (matriz.length !== matriz[0].length) {
         alert("La matriz debe ser cuadrada para calcular su inversa.");
         return null;
     }
 
-    // Crear una matriz aumentada [A | I]
     const aumentada = matriz.map((fila, i) => [
-        ...fila.map(valor => parseFloat(valor.toFixed(2))), // Evitar errores de precisión
+        ...fila.map(valor => parseFloat(valor.toFixed(2))), 
         ...generarMatrizIdentidad(n)[i]
     ]);
 
-    // Aplicar el método de Gauss-Jordan
     for (let i = 0; i < n; i++) {
-        // Hacer que el elemento diagonal sea 1
         const divisor = aumentada[i][i];
         if (divisor === 0) {
             alert("La matriz no es invertible (determinante es 0).");
@@ -300,7 +292,6 @@ function calcularInversa(matriz) {
             aumentada[i][j] /= divisor;
         }
 
-        // Hacer que los demás elementos de la columna sean 0
         for (let k = 0; k < n; k++) {
             if (k !== i) {
                 const factor = aumentada[k][i];
@@ -311,18 +302,17 @@ function calcularInversa(matriz) {
         }
     }
 
-    // Extraer la inversa de la parte derecha de la matriz aumentada
     const inversa = aumentada.map(fila => fila.slice(n));
     return inversa;
 }
 
 // Función para calcular y mostrar la inversa de una matriz
 function calcularInversaMatriz(tipo) {
-    const matriz = obtenerMatriz(tipo); // Obtener la matriz
+    const matriz = obtenerMatriz(tipo); 
 
-    if (!matriz) return; // Si no hay matriz, salir
+    if (!matriz) return;
 
-    const inversa = calcularInversa(matriz); // Calcular la inversa
+    const inversa = calcularInversa(matriz); 
 
     if (inversa) {
         mostrarResultado([{ titulo: `Inversa de ${tipo}`, matriz: inversa }]);
