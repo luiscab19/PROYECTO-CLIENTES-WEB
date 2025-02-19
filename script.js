@@ -279,15 +279,28 @@ function calcularInversa(matriz) {
 
     const aumentada = matriz.map((fila, i) => [
         ...fila.map(valor => parseFloat(valor.toFixed(2))), 
-        ...generarMatrizIdentidad(n)[i]
+        ...Array(n).fill(0).map((_, j) => (i === j ? 1 : 0)) // Matriz identidad
     ]);
 
     for (let i = 0; i < n; i++) {
-        const divisor = aumentada[i][i];
-        if (divisor === 0) {
-            alert("La matriz no es invertible (determinante es 0).");
-            return null;
+        if (aumentada[i][i] === 0) {
+            let filaIntercambio = -1;
+            for (let k = i + 1; k < n; k++) {
+                if (aumentada[k][i] !== 0) {
+                    filaIntercambio = k;
+                    break;
+                }
+            }
+
+            if (filaIntercambio === -1) {
+                alert("La matriz no es invertible (determinante es 0).");
+                return null;
+            }
+
+            [aumentada[i], aumentada[filaIntercambio]] = [aumentada[filaIntercambio], aumentada[i]];
         }
+
+        const divisor = aumentada[i][i];
         for (let j = 0; j < 2 * n; j++) {
             aumentada[i][j] /= divisor;
         }
