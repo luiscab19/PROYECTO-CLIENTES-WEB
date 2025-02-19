@@ -75,3 +75,269 @@ function limpiarMatriz(tipo) {
         }
     }
 }
+
+// Función para obtener una matriz desde los inputs
+function obtenerMatriz(tipo) {
+    const filas = tipo === 'A' ? tamanoA.filas : tamanoB.filas;
+    const columnas = tipo === 'A' ? tamanoA.columnas : tamanoB.columnas;
+    const matriz = [];
+
+    for (let i = 0; i < filas; i++) {
+        const fila = [];
+        for (let j = 0; j < columnas; j++) {
+            const valor = parseFloat(document.getElementById(`celda${tipo}${i}${j}`).value);
+            if (isNaN(valor)) {
+                alert("Por favor, ingrese todos los valores.");
+                return null;
+            }
+            fila.push(valor);
+        }
+        matriz.push(fila);
+    }
+
+    return matriz;
+}
+
+// Función para mostrar una matriz en un contenedor
+function mostrarMatriz(id, matriz) {
+    const contenedor = document.getElementById(id);
+    let html = '<table>';
+    for (let fila of matriz) {
+        html += '<tr>';
+        for (let valor of fila) {
+            html += `<td>${valor}</td>`;
+        }
+        html += '</tr>';
+    }
+    html += '</table>';
+    contenedor.innerHTML = html;
+}
+
+// Función para sumar matrices
+function sumarMatrices() {
+    const matrizA = obtenerMatriz('A');
+    const matrizB = obtenerMatriz('B');
+
+    if (!matrizA || !matrizB) return;
+
+    if (!checkDimensions(matrizA, matrizB)) {
+        alert("Las matrices no tienen las mismas dimensiones.");
+        return;
+    }
+
+    const resultado = matrizA.map((fila, i) => fila.map((valor, j) => valor + matrizB[i][j]));
+    mostrarResultado([{ titulo: 'A + B', matriz: resultado }]);
+}
+
+// Función para restar matrices
+function restarMatrices() {
+    const matrizA = obtenerMatriz('A');
+    const matrizB = obtenerMatriz('B');
+
+    if (!matrizA || !matrizB) return;
+
+    if (!checkDimensions(matrizA, matrizB)) {
+        alert("Las matrices no tienen las mismas dimensiones.");
+        return;
+    }
+
+    const resultado = matrizA.map((fila, i) => fila.map((valor, j) => valor - matrizB[i][j]));
+    mostrarResultado([{ titulo: 'A - B', matriz: resultado }]);
+}
+
+// Función para multiplicar matrices
+function multiplicarMatrices() {
+    const matrizA = obtenerMatriz('A');
+    const matrizB = obtenerMatriz('B');
+
+    if (!matrizA || !matrizB) return;
+
+    if (!checkMultiplicationCompatibility(matrizA, matrizB)) {
+        alert("Las matrices no son compatibles para la multiplicación.");
+        return;
+    }
+
+    const resultado = new Array(matrizA.length).fill(0).map(() => new Array(matrizB[0].length).fill(0));
+
+    for (let i = 0; i < matrizA.length; i++) {
+        for (let j = 0; j < matrizB[0].length; j++) {
+            for (let k = 0; k < matrizA[0].length; k++) {
+                resultado[i][j] += matrizA[i][k] * matrizB[k][j];
+            }
+        }
+    }
+
+    mostrarResultado([{ titulo: 'A * B', matriz: resultado }]);
+}
+
+// Función para multiplicar por un escalar
+function multiplicarPorEscalar() {
+    const matrizA = obtenerMatriz('A');
+    const escalar = parseFloat(document.getElementById('scalar').value);
+
+    if (!matrizA) return;
+
+    if (isNaN(escalar)) {
+        alert("Por favor, ingrese un escalar válido.");
+        return;
+    }
+
+    const resultado = matrizA.map(fila => fila.map(valor => valor * escalar));
+    mostrarResultado([
+        { titulo: 'Matriz A', matriz: matrizA },
+        { titulo: 'A * Escalar', matriz: resultado }
+    ]);
+}
+
+// Función para mostrar el resultado
+function mostrarResultado(resultados) {
+    const contenedor = document.getElementById('resultado');
+    let html = '<div class="result-display">';
+    for (let res of resultados) {
+        html += `<div><h3>${res.titulo}</h3>`;
+        html += '<table>';
+        for (let fila of res.matriz) {
+            html += '<tr>';
+            for (let valor of fila) {
+                html += `<td>${valor}</td>`;
+            }
+            html += '</tr>';
+        }
+        html += '</table></div>';
+    }
+    html += '</div>';
+    contenedor.innerHTML = html;
+}
+
+// Función para calcular el determinante (solo para matrices cuadradas)
+function calcularDeterminante(tipo) {
+    const matriz = obtenerMatriz(tipo);
+
+    if (!matriz) return;
+
+    if (matriz.length !== matriz[0].length) {
+        alert("La matriz debe ser cuadrada para calcular el determinante.");
+        return;
+    }
+
+    const determinante = calcularDeterminanteRecursivo(matriz);
+    alert(`El determinante de la matriz ${tipo} es: ${determinante}`);
+}
+
+// Función recursiva para calcular el determinante
+function calcularDeterminanteRecursivo(matriz) {
+    if (matriz.length === 2) {
+        return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
+    }
+
+    let det = 0;
+    for (let i = 0; i < matriz.length; i++) {
+        const submatriz = matriz.slice(1).map(fila => fila.filter((_, j) => j !== i));
+        det += matriz[0][i] * Math.pow(-1, i) * calcularDeterminanteRecursivo(submatriz);
+    }
+    return det;
+}
+
+// Función para verificar dimensiones
+function checkDimensions(matrizA, matrizB) {
+    return matrizA.length === matrizB.length && matrizA[0].length === matrizB[0].length;
+}
+
+// Función para verificar compatibilidad de multiplicación
+function checkMultiplicationCompatibility(matrizA, matrizB) {
+    return matrizA[0].length === matrizB.length;
+}
+
+// Función para transponer una matriz
+function transponerMatriz(tipo) {
+    const matriz = obtenerMatriz(tipo); // Obtener la matriz
+
+    if (!matriz) return; // Si no hay matriz, salir
+
+    // Crear la matriz transpuesta
+    const transpuesta = matriz[0].map((_, colIndex) => matriz.map(fila => fila[colIndex]));
+
+    // Mostrar el resultado
+    mostrarResultado([{ titulo: `Transpuesta de ${tipo}`, matriz: transpuesta }]);
+}
+
+// Función para generar la matriz identidad de tamaño nxn
+function generarMatrizIdentidad(n) {
+    const identidad = [];
+    for (let i = 0; i < n; i++) {
+        const fila = new Array(n).fill(0); // Llenar la fila con ceros
+        fila[i] = 1; // Colocar 1 en la diagonal principal
+        identidad.push(fila);
+    }
+    return identidad;
+}
+
+// Función para calcular la inversa de una matriz usando Gauss-Jordan
+function calcularInversa(matriz) {
+    const n = matriz.length;
+
+    // Verificar si la matriz es cuadrada
+    if (matriz.length !== matriz[0].length) {
+        alert("La matriz debe ser cuadrada para calcular su inversa.");
+        return null;
+    }
+
+    // Crear una matriz aumentada [A | I]
+    const aumentada = matriz.map((fila, i) => [
+        ...fila.map(valor => parseFloat(valor.toFixed(2))), // Evitar errores de precisión
+        ...generarMatrizIdentidad(n)[i]
+    ]);
+
+    // Aplicar el método de Gauss-Jordan
+    for (let i = 0; i < n; i++) {
+        // Hacer que el elemento diagonal sea 1
+        const divisor = aumentada[i][i];
+        if (divisor === 0) {
+            alert("La matriz no es invertible (determinante es 0).");
+            return null;
+        }
+        for (let j = 0; j < 2 * n; j++) {
+            aumentada[i][j] /= divisor;
+        }
+
+        // Hacer que los demás elementos de la columna sean 0
+        for (let k = 0; k < n; k++) {
+            if (k !== i) {
+                const factor = aumentada[k][i];
+                for (let j = 0; j < 2 * n; j++) {
+                    aumentada[k][j] -= factor * aumentada[i][j];
+                }
+            }
+        }
+    }
+
+    // Extraer la inversa de la parte derecha de la matriz aumentada
+    const inversa = aumentada.map(fila => fila.slice(n));
+    return inversa;
+}
+
+// Función para calcular y mostrar la inversa de una matriz
+function calcularInversaMatriz(tipo) {
+    const matriz = obtenerMatriz(tipo); // Obtener la matriz
+
+    if (!matriz) return; // Si no hay matriz, salir
+
+    const inversa = calcularInversa(matriz); // Calcular la inversa
+
+    if (inversa) {
+        mostrarResultado([{ titulo: `Inversa de ${tipo}`, matriz: inversa }]);
+    }
+}
+
+// Función para generar y mostrar la matriz identidad
+function generarYMostrarIdentidad() {
+    const n = parseInt(prompt("Ingrese el tamaño de la matriz identidad (n):"));
+
+    if (isNaN(n) || n < 1 || n > 5) {
+        alert("El tamaño debe ser un número entre 1 y 5.");
+        return;
+    }
+
+    const identidad = generarMatrizIdentidad(n);
+    mostrarResultado([{ titulo: `Matriz Identidad ${n}x${n}`, matriz: identidad }]);
+}
