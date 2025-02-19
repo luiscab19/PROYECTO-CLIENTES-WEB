@@ -1,13 +1,13 @@
 /* Estilos generales */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea, #8193cd);
+    background: linear-gradient(100deg, #9d15d7, #446beb);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    color: #333;
+    color: #000000;
 }
 
 .container {
@@ -50,11 +50,11 @@ h2 {
 }
 
 #bloqueA {
-    background-color: #e3f2fd;
+    background-color: #e5c4f2;
 }
 
 #bloqueB {
-    background-color: #fff3e0;
+    background-color:  #9fcff1;
 }
 
 /* Inputs y tablas */
